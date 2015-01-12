@@ -6,7 +6,7 @@
     <javascript src="https://www.google.com/jsapi"/>
 
     <version>
-        <version-class>org.zkoss.googlecharts.Version</version-class>
+        <version-class>org.zkoss.google.charts.Version</version-class>
         <version-uid>0.1</version-uid>
         <zk-version>5.0.5</zk-version>
         <!-- or later -->
