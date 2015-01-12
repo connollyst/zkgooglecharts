@@ -17,7 +17,6 @@
         <mold>
             <mold-name>default</mold-name>
             <mold-uri>mold/piechart.js</mold-uri>
-            <css-uri>css/piechart.css</css-uri>
         </mold>
     </component>
 </language-addon>
