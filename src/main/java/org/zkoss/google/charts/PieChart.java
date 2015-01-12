@@ -12,28 +12,21 @@ import org.zkoss.zul.impl.XulElement;
  */
 public class PieChart extends XulElement {
 
-	private Map<String, Map<String, Object>> data = new HashMap<String, Map<String, Object>>();
+	private DataTable data = new DataTable();
 	private Map<String, String> options = new HashMap<String, String>();
 
 	public PieChart() {
-		data.put("columns", new HashMap<String, Object>());
-		data.put("rows", new HashMap<String, Object>());
-		data.get("columns").put("string", "Filling");
-		data.get("columns").put("number", "Pieces");
-		data.get("rows").put("Custard", 20);
-		data.get("rows").put("Chocolate", 50);
-		data.get("rows").put("Meat", 3);
 		options.put("title", "Pudding");
 		options.put("width", "800");
 		options.put("height", "600");
 	}
 
-	public String getData() {
-		return data.toString();
+	public DataTable getData() {
+		return data;
 	}
 
-	public void setData(String data) {
-		// this.data = data;
+	public void setData(String DataTable) {
+		this.data = data;
 		smartUpdate("chartData", this.data);
 	}
 
@@ -50,7 +43,7 @@ public class PieChart extends XulElement {
 	protected void renderProperties(ContentRenderer renderer)
 			throws IOException {
 		super.renderProperties(renderer);
-		render(renderer, "chartData", data);
+		render(renderer, "chartData", data.toMap());
 		render(renderer, "chartOptions", options);
 	}
 
