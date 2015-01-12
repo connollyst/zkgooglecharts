@@ -1,0 +1,23 @@
+<language-addon>
+    <addon-name>zkgooglecharts</addon-name>
+    <depends>zul</depends>
+    <language-name>xul/html</language-name>
+
+    <version>
+        <version-class>org.zkoss.googlecharts.Version</version-class>
+        <version-uid>0.1</version-uid>
+        <zk-version>5.0.5</zk-version>
+        <!-- or later -->
+    </version>
+
+    <component>
+        <component-name>piechart</component-name>
+        <component-class>org.zkoss.google.charts.PieChart</component-class>
+        <widget-class>zul.googlecharts.PieChart</widget-class>
+        <mold>
+            <mold-name>default</mold-name>
+            <mold-uri>mold/piechart.js</mold-uri>
+            <css-uri>css/piechart.css</css-uri>
+        </mold>
+    </component>
+</language-addon>
