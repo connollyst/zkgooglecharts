@@ -7,3 +7,5 @@ release.properties
 
 .idea/
 *.iml
+
+rebel.xml
