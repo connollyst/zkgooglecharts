@@ -1,0 +1,4 @@
+<vbox hflex="1">
+    <label value="Example 1"/>
+    <piechart/>
+</vbox>
