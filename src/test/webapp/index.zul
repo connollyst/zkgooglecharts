@@ -1,3 +1,3 @@
 <vbox hflex="1">
-    <piechart data="hi" options="bye"/>
+    <piechart/>
 </vbox>

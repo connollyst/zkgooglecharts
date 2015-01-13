@@ -32,18 +32,9 @@ zul.googlecharts.PieChart = zk.$extends(zk.Widget, {
         console.log("Drawing..");
         console.log(this._chartData);
         console.log(this._chartOptions);
-        var data = new google.visualization.DataTable();
-        for (var type in this._chartData['columns']) {
-            var label = this._chartData['columns'][type];
-            console.log(type + " = " + label);
-            data.addColumn(type, label);
-        }
-        for (var key in this._chartData['rows']) {
-            var value = this._chartData['rows'][key];
-            data.addRow([key, value]);
-        }
-        // Instantiate and draw our chart, passing in some options.
         console.log('Rendering pie chart into ' + this.uuid);
+        // Instantiate and draw our chart, passing in some options.
+        var data = new google.visualization.DataTable(this._chartData);
         var container = document.getElementById(this.uuid);
         var chart = new google.visualization.PieChart(container);
         chart.draw(data, this._chartOptions);
