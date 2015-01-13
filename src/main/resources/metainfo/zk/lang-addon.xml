@@ -4,7 +4,7 @@
     <language-name>xul/html</language-name>
 
     <javascript
-            src="https://www.google.com/jsapi?autoload={modules:[{name:'visualization',version:'1.0',packages:['corechart']}]}}"/>
+            src="https://www.google.com/jsapi?autoload={modules:[{name:'visualization',version:'1.1',packages:['corechart','bar']}]}}"/>
 
     <version>
         <version-class>org.zkoss.google.charts.Version</version-class>
@@ -19,7 +19,21 @@
         <widget-class>zul.googlecharts.PieChart</widget-class>
         <mold>
             <mold-name>default</mold-name>
-            <mold-uri>mold/piechart.js</mold-uri>
+            <mold-uri>mold/chart.js</mold-uri>
+        </mold>
+    </component>
+
+    <component>
+        <component-name>barchart</component-name>
+        <component-class>org.zkoss.google.charts.BarChart</component-class>
+        <widget-class>zul.googlecharts.BarChart</widget-class>
+        <mold>
+            <mold-name>default</mold-name>
+            <mold-uri>mold/chart.js</mold-uri>
+        </mold>
+        <mold>
+            <mold-name>material</mold-name>
+            <mold-uri>mold/chart.js</mold-uri>
         </mold>
     </component>
 </language-addon>

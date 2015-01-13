@@ -5,15 +5,15 @@ import org.zkoss.google.charts.data.FormattedValue;
 /**
  * <p>
  * Wrapper of the <a href=
- * "https://developers.google.com/chart/interactive/docs/gallery/piechart">Pie
+ * "https://developers.google.com/chart/interactive/docs/gallery/barchart">Bar
  * Chart</a> visualization provided in Google Charts.
  * </p>
  *
  * @author Sean Connolly
  */
-public class PieChart extends AbstractChart {
+public class BarChart extends AbstractChart {
 
-	public PieChart() {
+	public BarChart() {
 		data.addStringColumn("Task", "task");
 		data.addNumberColumn("Hours per Day", "hours");
 		data.addRow("Work", 11);

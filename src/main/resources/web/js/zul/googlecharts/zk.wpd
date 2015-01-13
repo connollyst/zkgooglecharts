@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package name="zul.googlecharts" language="xul/html">
+    <widget name="BarChart"/>
     <widget name="PieChart"/>
 </package>
