@@ -1,6 +1,8 @@
 package org.zkoss.google.charts.data;
 
 /**
+ * A formatted {@link DataTable} cell value.
+ *
  * @author Sean Connolly
  */
 public class FormattedValue {

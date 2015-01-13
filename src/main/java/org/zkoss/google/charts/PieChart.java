@@ -10,6 +10,12 @@ import org.zkoss.zk.ui.sys.ContentRenderer;
 import org.zkoss.zul.impl.XulElement;
 
 /**
+ * <p>
+ * Wrapper of the <a href=
+ * "https://developers.google.com/chart/interactive/docs/gallery/piechart" >Pie
+ * Chart</a> visualization provided in Google Charts.
+ * </p>
+ *
  * @author Sean Connolly
  */
 public class PieChart extends XulElement {

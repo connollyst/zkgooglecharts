@@ -33,6 +33,7 @@ public class DataTableTest {
 		data.addRow("Sleep", new FormattedValue(7, "7.000"));
 		// When
 		String json = data.toString();
+		System.out.println(json);
 		// Then
 		assertEquals(load("example.json"), json, JSON_STRICT);
 	}

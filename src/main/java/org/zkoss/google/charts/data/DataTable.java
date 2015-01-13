@@ -7,6 +7,13 @@ import org.zkoss.json.JSONArray;
 import org.zkoss.json.JSONObject;
 
 /**
+ * <p>
+ * Wrapper of the <a href=
+ * "https://developers.google.com/chart/interactive/docs/reference#DataTable"
+ * >google.visualization.DataTable</a> JavaScript class provided in Google
+ * Charts.
+ * </p>
+ *
  * @author Sean Connolly
  */
 public class DataTable extends JSONObject {
@@ -19,13 +26,6 @@ public class DataTable extends JSONObject {
 
 	// TODO implement like ZK Grid
 
-	// TODO 'string', 'number', 'boolean', 'date', 'datetime', and 'timeofday'
-
-	// TODO can we support compile time safety?
-
-	// TODO we need to store as an ArrayList of ArrayLists so we can resize
-	// properly
-
 	private List<Column> columns = new ArrayList<Column>();
 	private List<Row> rows = new ArrayList<Row>();
 
@@ -36,60 +36,60 @@ public class DataTable extends JSONObject {
 	}
 
 	public Column addStringColumn(String label) {
-		return addColumn("string", label);
+		return addColumn(ColumnType.STRING, label);
 	}
 
 	public Column addNumberColumn(String label) {
-		return addColumn("number", label);
+		return addColumn(ColumnType.NUMBER, label);
 	}
 
 	public Column addBooleanColumn(String label) {
-		return addColumn("boolean", label);
+		return addColumn(ColumnType.BOOLEAN, label);
 	}
 
 	public Column addDateColumn(String label) {
-		return addColumn("date", label);
+		return addColumn(ColumnType.DATE, label);
 	}
 
 	public Column addDateTimeColumn(String label) {
-		return addColumn("datetime", label);
+		return addColumn(ColumnType.DATETIME, label);
 	}
 
 	public Column addTimeColumn(String label) {
-		return addColumn("timeofday", label);
+		return addColumn(ColumnType.TIMEOFDAY, label);
 	}
 
-	private Column addColumn(String type, String label) {
+	public Column addColumn(ColumnType type, String label) {
 		Column column = new Column(type, label);
 		columns.add(column);
 		return column;
 	}
 
 	public Column addStringColumn(String label, String id) {
-		return addColumn("string", label, id);
+		return addColumn(ColumnType.STRING, label, id);
 	}
 
 	public Column addNumberColumn(String label, String id) {
-		return addColumn("number", label, id);
+		return addColumn(ColumnType.NUMBER, label, id);
 	}
 
 	public Column addBooleanColumn(String label, String id) {
-		return addColumn("boolean", label, id);
+		return addColumn(ColumnType.BOOLEAN, label, id);
 	}
 
 	public Column addDateColumn(String label, String id) {
-		return addColumn("date", label, id);
+		return addColumn(ColumnType.DATE, label, id);
 	}
 
 	public Column addDateTimeColumn(String label, String id) {
-		return addColumn("datetime", label, id);
+		return addColumn(ColumnType.DATETIME, label, id);
 	}
 
 	public Column addTimeColumn(String label, String id) {
-		return addColumn("timeofday", label, id);
+		return addColumn(ColumnType.TIMEOFDAY, label, id);
 	}
 
-	private Column addColumn(String type, String label, String id) {
+	public Column addColumn(ColumnType type, String label, String id) {
 		Column column = new Column(type, label, id);
 		columns.add(column);
 		return column;
@@ -151,8 +151,8 @@ public class DataTable extends JSONObject {
 		 *            A label for the column.
 		 */
 		@SuppressWarnings("unchecked")
-		public Column(String type, String label) {
-			put(TYPE, type);
+		public Column(ColumnType type, String label) {
+			put(TYPE, type.toString());
 			put(LABEL, label);
 		}
 
@@ -166,8 +166,8 @@ public class DataTable extends JSONObject {
 		 *            An ID for the column.
 		 */
 		@SuppressWarnings("unchecked")
-		public Column(String type, String label, String id) {
-			put(TYPE, type);
+		public Column(ColumnType type, String label, String id) {
+			put(TYPE, type.toString());
 			put(LABEL, label);
 			put(ID, id);
 		}
@@ -185,8 +185,8 @@ public class DataTable extends JSONObject {
 		 *            the column value.
 		 */
 		@SuppressWarnings("unchecked")
-		public Column(String type, String label, String id, String pattern) {
-			put(TYPE, type);
+		public Column(ColumnType type, String label, String id, String pattern) {
+			put(TYPE, type.toString());
 			put(LABEL, label);
 			put(ID, id);
 			put(PATTERN, pattern);
