@@ -1,4 +1,4 @@
-zul.googlecharts.BarChart = zk.$extends(zk.Widget, {
+zul.googlecharts.ColumnChart = zk.$extends(zk.Widget, {
 
     _chartData: '',
     _chartOptions: '',
@@ -29,30 +29,30 @@ zul.googlecharts.BarChart = zk.$extends(zk.Widget, {
     // protected //
 
     doDrawChart_: function () {
-        console.log("Drawing " + this.getMold() + " bar chart..");
+        console.log("Drawing " + this.getMold() + " column chart..");
         console.log(this._chartData);
         console.log(this._chartOptions);
-        console.log('Rendering bar chart into ' + this.uuid);
+        console.log('Rendering column chart into ' + this.uuid);
         // Instantiate and draw our chart, passing in some options.
         var data = new google.visualization.DataTable(this._chartData);
         var container = document.getElementById(this.uuid);
         if (this.getMold() == 'material') {
-            var chart = new google.charts.Bar(container);
-            // TODO set option bars: 'horizontal'
+            var chart = new google.charts.Column(container);
+            // TODO set option bars: 'vertical'
         } else {
-            var chart = new google.visualization.BarChart(container);
+            var chart = new google.visualization.ColumnChart(container);
         }
         chart.draw(data, this._chartOptions);
     },
     bind_: function () {
-        this.$supers(zul.googlecharts.BarChart, 'bind_', arguments);
+        this.$supers(zul.googlecharts.ColumnChart, 'bind_', arguments);
         var self = this;
         google.setOnLoadCallback(function () {
             self.doDrawChart_();
         });
     },
     unbind_: function () {
-        this.$supers(zul.googlecharts.BarChart, 'unbind_', arguments);
+        this.$supers(zul.googlecharts.ColumnChart, 'unbind_', arguments);
     }
 
 });
