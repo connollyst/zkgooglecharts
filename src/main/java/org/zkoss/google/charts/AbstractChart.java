@@ -22,7 +22,7 @@ public abstract class AbstractChart extends XulElement {
 		return data;
 	}
 
-	public void setData(String DataTable) {
+	public void setData(DataTable data) {
 		this.data = data;
 		smartUpdate("chartData", this.data);
 	}
