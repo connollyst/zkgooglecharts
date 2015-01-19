@@ -14,7 +14,7 @@
     <url>https://github.com/connollyst/zkgooglecharts</url>
 
     <scm>
-        <url>https://github.com/connollyst/zkfontawesome</url>
+        <url>https://github.com/connollyst/zkgooglecharts</url>
         <connection>
             scm:git:git://github.com/connollyst/zkgooglecharts.git
         </connection>
