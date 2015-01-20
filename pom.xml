@@ -41,7 +41,7 @@
     </licenses>
 
     <properties>
-        <zk.version>5.0.10</zk.version>
+        <zk.version>7.0.3</zk.version>
         <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
         <packname>-${project.version}-FL-${maven.build.timestamp}</packname>
         <jackson.version>2.5.0</jackson.version>
@@ -87,6 +87,11 @@
         <dependency>
             <groupId>org.zkoss.zk</groupId>
             <artifactId>zul</artifactId>
+            <version>${zk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.zkoss.zk</groupId>
+            <artifactId>zkbind</artifactId>
             <version>${zk.version}</version>
         </dependency>
         <dependency>

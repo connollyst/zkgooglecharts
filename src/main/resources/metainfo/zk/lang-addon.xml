@@ -4,12 +4,12 @@
     <language-name>xul/html</language-name>
 
     <javascript
-            src="https://www.google.com/jsapi?autoload={modules:[{name:'visualization',version:'1.1',packages:['corechart','bar']}]}}"/>
+            src="https://www.google.com/jsapi?autoload={modules:[{name:'visualization',version:'1',packages:['corechart']}]}}"/>
 
     <version>
         <version-class>org.zkoss.google.charts.Version</version-class>
-        <version-uid>0.1</version-uid>
-        <zk-version>5.0.5</zk-version>
+        <version-uid>0.2</version-uid>
+        <zk-version>7.0.0</zk-version>
         <!-- or later -->
     </version>
 
@@ -31,10 +31,6 @@
             <mold-name>default</mold-name>
             <mold-uri>mold/chart.js</mold-uri>
         </mold>
-        <mold>
-            <mold-name>material</mold-name>
-            <mold-uri>mold/chart.js</mold-uri>
-        </mold>
     </component>
 
     <component>
@@ -43,10 +39,6 @@
         <widget-class>zul.googlecharts.ColumnChart</widget-class>
         <mold>
             <mold-name>default</mold-name>
-            <mold-uri>mold/chart.js</mold-uri>
-        </mold>
-        <mold>
-            <mold-name>material</mold-name>
             <mold-uri>mold/chart.js</mold-uri>
         </mold>
     </component>
