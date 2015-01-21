@@ -35,12 +35,14 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
             return document.getElementById(this.uuid);
         },
         bind_: function () {
-            console.log('Binding GoogleChart');
-            console.log('googleLoaded=' + zul.googlecharts.GoogleChart.googleLoaded);
+            console.log('Binding GoogleChart (googleLoaded=' + zul.googlecharts.GoogleChart.googleLoaded + ')');
             this.$supers(zul.googlecharts.GoogleChart, 'bind_', arguments);
+            console.log('Bound GoogleChart.');
         },
         unbind_: function () {
-            this.$supers(zul.googlecharts.BarChart, 'unbind_', arguments);
+            console.log('Unbinding GoogleChart (googleLoaded=' + zul.googlecharts.GoogleChart.googleLoaded + ')');
+            this.$supers(zul.googlecharts.GoogleChart, 'unbind_', arguments);
+            console.log('Unbound GoogleChart.');
         }
 
     },
@@ -48,10 +50,13 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
         googleLoaded: false,
 
         addOnLoadCallback: function (f) {
+            console.log('Registering onLoad callback..');
             zul.googlecharts.GoogleChart._onLoadCallbacks.push(f);
+            console.log('onLoad callbacks: ' + zul.googlecharts.GoogleChart._onLoadCallbacks.length);
         },
 
         _onLoadCallbacks: [],
+
         _onLoad: function () {
             zul.googlecharts.GoogleChart.googleLoaded = true;
             console.log('Google loaded!');
@@ -63,6 +68,7 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
                 console.log('Executing ' + f);
                 f();
             }
+            console.log('Done executing queued callbacks.');
         }
 
     });

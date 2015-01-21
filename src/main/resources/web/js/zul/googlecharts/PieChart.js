@@ -14,10 +14,12 @@ zul.googlecharts.PieChart = zk.$extends(zul.googlecharts.GoogleChart, {
         this.$supers(zul.googlecharts.PieChart, 'bind_', arguments);
         var self = this;
         if (!zul.googlecharts.GoogleChart.googleLoaded) {
+            console.log('Google is not loaded, drawing later..');
             zul.googlecharts.GoogleChart.addOnLoadCallback(function () {
                 self.doDrawChart_()
             });
         } else {
+            console.log('Google is loaded, drawing now..');
             self.doDrawChart_();
         }
     }
