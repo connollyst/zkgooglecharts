@@ -4,7 +4,7 @@
 
     <groupId>org.zkoss</groupId>
     <artifactId>zkgooglecharts</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>ZK Google Charts</name>
