@@ -25,8 +25,23 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
                 }
             ]
         },
+        $init: function () {
+            console.log('GoogleChart.$init()');
+            this.$supers(zul.googlecharts.GoogleChart, '$init', arguments);
+            if (!zul.googlecharts.GoogleChart.googleLoaded && !zul.googlecharts.GoogleChart.googleLoading) {
+                console.log('Loading Google APIs..');
+                google.load('visualization', '1', {
+                    'packages': ['corechart'],
+                    'callback': zul.googlecharts.GoogleChart._onLoad
+                });
+                zul.googlecharts.GoogleChart.googleLoading = true;
+            } else {
+                console.log('Google APIs have already been loaded.');
+            }
+        },
 
         // protected //
+
         drawChart_: function (chart) {
             var data = new google.visualization.DataTable(this._chartData);
             chart.draw(data, this._chartOptions);
@@ -47,6 +62,7 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
 
     },
     {
+        googleLoading: false,
         googleLoaded: false,
 
         addOnLoadCallback: function (f) {
@@ -58,8 +74,9 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
         _onLoadCallbacks: [],
 
         _onLoad: function () {
+            zul.googlecharts.GoogleChart.googleLoading = false;
             zul.googlecharts.GoogleChart.googleLoaded = true;
-            console.log('Google loaded!');
+            console.log('Google APIs loaded!');
             console.log('googleLoaded=' + zul.googlecharts.GoogleChart.googleLoaded);
             var l = zul.googlecharts.GoogleChart._onLoadCallbacks.length;
             console.log('Executing ' + l + ' queued callbacks..');
@@ -72,5 +89,3 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
         }
 
     });
-// Register a callback listener with the Google APIs, shared by all Google Chart widgets
-google.setOnLoadCallback(zul.googlecharts.GoogleChart._onLoad);

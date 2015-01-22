@@ -3,8 +3,7 @@
     <depends>zul</depends>
     <language-name>xul/html</language-name>
 
-    <javascript
-            src="https://www.google.com/jsapi?autoload={modules:[{name:'visualization',version:'1',packages:['corechart']}]}}"/>
+    <javascript src="https://www.google.com/jsapi"/>
 
     <version>
         <version-class>org.zkoss.google.charts.Version</version-class>
