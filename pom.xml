@@ -4,7 +4,7 @@
 
     <groupId>org.zkoss</groupId>
     <artifactId>zkgooglecharts</artifactId>
-    <version>0.1.4-SNAPSHOT</version>
+    <version>0.1.4</version>
     <packaging>jar</packaging>
 
     <name>ZK Google Charts</name>
@@ -19,7 +19,7 @@
         <developerConnection>
             scm:git:git@github.com:connollyst/zkgooglecharts.git
         </developerConnection>
-        <tag>HEAD</tag>
+        <tag>zkgooglecharts-0.1.4</tag>
     </scm>
 
     <developers>
