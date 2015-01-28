@@ -1,17 +1,15 @@
 package org.zkoss.google.charts.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.zkoss.json.JSONArray;
 import org.zkoss.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
- * Wrapper of the <a href=
- * "https://developers.google.com/chart/interactive/docs/reference#DataTable"
- * >google.visualization.DataTable</a> JavaScript class provided in Google
- * Charts.
+ * Wrapper of the <a href= "https://developers.google.com/chart/interactive/docs/reference#DataTable"
+ * >google.visualization.DataTable</a> JavaScript class provided in Google Charts.
  * </p>
  *
  * @author Sean Connolly
@@ -33,6 +31,71 @@ public class DataTable extends JSONObject {
 	public DataTable() {
 		put(COLUMNS, columns);
 		put(ROWS, rows);
+	}
+
+	/**
+	 * @return the number of columns in the table
+	 */
+	public int getNumberOfColumns() {
+		return columns.size();
+	}
+
+	/**
+	 * @return the number of rows in the table
+	 */
+	public int getNumberOfRows() {
+		return rows.size();
+	}
+
+	/**
+	 * Returns the value of the cell at the given row and column indexes.
+	 *
+	 * @param rowIndex should be a number greater than or equal to zero, and less than the number of rows as returned by
+	 *            the {@link #getNumberOfRows()} method.
+	 * @param columnIndex should be a number greater than or equal to zero, and less than the number of columns as
+	 *            returned by the {@link #getNumberOfColumns()} method.
+	 * @return The type of the returned value depends on the column type (see {@link #getColumnType()}):
+	 *         <ul>
+	 *         <li>If the column type is {@code 'string'}, the value is a {@code String}.</li>
+	 *         <li>If the column type is {@code 'number'}, the value is an {@code Integer}.</li>
+	 *         <li>If the column type is {@code 'boolean'}, the value is a {@code Boolean}.</li>
+	 *         <li>If the column type is {@code 'date'} or {@code 'datetime'}, the value is a {@code Date} object.</li>
+	 *         <li>If the column type is {@code 'timeofday'}, the value is an array of four numbers: [hour, minute,
+	 *         second, milliseconds].</li>
+	 *         <li>If the column value is a {@code null} value, an exception is thrown.</li>
+	 *         </ul>
+	 */
+	public Object getValue(int rowIndex, int columnIndex) {
+		return getRow(rowIndex).getCell(columnIndex).getValue();
+	}
+
+	/**
+	 * Sets the value of a cell. In addition to overwriting any existing cell value, this method will also clear out any
+	 * formatted value and properties for the cell.
+	 *
+	 * @param rowIndex should be a number greater than or equal to zero, and less than the number of rows as returned by
+	 *            the {@link #getNumberOfRows()} method.
+	 * @param columnIndex should be a number greater than or equal to zero, and less than the number of columns as
+	 *            returned by the {@link #getNumberOfColumns()} method.
+	 * @param value is the value assigned to the specified cell. The type of the returned value depends on the column
+	 *            type (see {@link #getColumnType()}):
+	 *            <ul>
+	 *            <li>If the column type is {@code 'string'}, the value is a {@code String}.</li>
+	 *            <li>If the column type is {@code 'number'}, the value is an {@code Integer}.</li>
+	 *            <li>If the column type is {@code 'boolean'}, the value is a {@code Boolean}.</li>
+	 *            <li>If the column type is {@code 'date'} or {@code 'datetime'}, the value is a {@code Date} object.</li>
+	 *            <li>If the column type is {@code 'timeofday'}, the value is an array of four numbers: [hour, minute,
+	 *            second, milliseconds].</li>
+	 *            <li>If the column value is a {@code null} value, an exception is thrown.</li>
+	 *            </ul>
+	 *
+	 * @see setCell
+	 * @see setFormattedValue
+	 * @see setProperty
+	 * @see setProperties
+	 */
+	public void setValue(int rowIndex, int columnIndex, Object value) {
+		getRow(rowIndex).getCell(columnIndex).setValue(value);
 	}
 
 	public Column addStringColumn(String label) {
@@ -62,6 +125,9 @@ public class DataTable extends JSONObject {
 	public Column addColumn(ColumnType type, String label) {
 		Column column = new Column(type, label);
 		columns.add(column);
+		for(Row row : rows) {
+			row.setCapacity(columns.size());
+		}
 		return column;
 	}
 
@@ -92,37 +158,47 @@ public class DataTable extends JSONObject {
 	public Column addColumn(ColumnType type, String label, String id) {
 		Column column = new Column(type, label, id);
 		columns.add(column);
+		for(Row row : rows) {
+			row.setCapacity(columns.size());
+		}
 		return column;
 	}
 
 	public Row addRow() {
-		Row row = new Row();
+		Row row = new Row(getNumberOfColumns());
 		rows.add(row);
 		return row;
 	}
 
 	public Row addRow(int index) {
-		Row row = new Row();
+		Row row = new Row(getNumberOfColumns());
 		rows.add(index, row);
 		return row;
 	}
 
-	public Row addRow(Object... cells) {
-		if (cells.length != columns.size()) {
-			throw new IllegalArgumentException("Cannot add a row of "
-					+ cells.length + " cells to a DataTable of "
+	public Row addRow(Object... values) {
+		if(values.length != getNumberOfColumns()) {
+			throw new IllegalArgumentException("Cannot add a row of " + values.length + " cells to a DataTable of "
 					+ columns.size() + " columns.");
 		}
-		Row row = new Row();
-		for (Object cell : cells) {
-			if (cell instanceof FormattedValue) {
-				row.addCell((FormattedValue) cell);
+		Row row = new Row(getNumberOfColumns());
+		for(int i = 0; i < values.length; i++) {
+			Object value = values[i];
+			if(value instanceof FormattedValue) {
+				row.setValue(i, (FormattedValue)value);
 			} else {
-				row.addCell(cell);
+				row.setValue(i, value);
 			}
 		}
 		rows.add(row);
 		return row;
+	}
+
+	private Row getRow(int rowIndex) {
+		if(rowIndex < 0 || rowIndex >= getNumberOfRows()) {
+			throw new IndexOutOfBoundsException("rowIndex: " + rowIndex);
+		}
+		return rows.get(rowIndex);
 	}
 
 	/**
@@ -131,8 +207,7 @@ public class DataTable extends JSONObject {
 	 * </p>
 	 * <p>
 	 * Serializes to an object of the JSON <a href=
-	 * "https://developers.google.com/chart/interactive/docs/reference#dataparam"
-	 * >{@code cols}</a> property.
+	 * "https://developers.google.com/chart/interactive/docs/reference#dataparam" >{@code cols}</a> property.
 	 * </p>
 	 */
 	public static final class Column extends JSONObject {
@@ -144,11 +219,8 @@ public class DataTable extends JSONObject {
 		private static final String PROPERTIES = "p";
 
 		/**
-		 * @param type
-		 *            A string describing the column data type. Same values as
-		 *            type above.
-		 * @param label
-		 *            A label for the column.
+		 * @param type A string describing the column data type. Same values as type above.
+		 * @param label A label for the column.
 		 */
 		@SuppressWarnings("unchecked")
 		public Column(ColumnType type, String label) {
@@ -157,13 +229,9 @@ public class DataTable extends JSONObject {
 		}
 
 		/**
-		 * @param type
-		 *            A string describing the column data type. Same values as
-		 *            type above.
-		 * @param label
-		 *            A label for the column.
-		 * @param id
-		 *            An ID for the column.
+		 * @param type A string describing the column data type. Same values as type above.
+		 * @param label A label for the column.
+		 * @param id An ID for the column.
 		 */
 		@SuppressWarnings("unchecked")
 		public Column(ColumnType type, String label, String id) {
@@ -173,16 +241,10 @@ public class DataTable extends JSONObject {
 		}
 
 		/**
-		 * @param type
-		 *            A string describing the column data type. Same values as
-		 *            type above.
-		 * @param label
-		 *            A label for the column.
-		 * @param id
-		 *            An ID for the column.
-		 * @param pattern
-		 *            A number (or date) format string specifying how to display
-		 *            the column value.
+		 * @param type A string describing the column data type. Same values as type above.
+		 * @param label A label for the column.
+		 * @param id An ID for the column.
+		 * @param pattern A number (or date) format string specifying how to display the column value.
 		 */
 		@SuppressWarnings("unchecked")
 		public Column(ColumnType type, String label, String id, String pattern) {
@@ -200,11 +262,10 @@ public class DataTable extends JSONObject {
 	 * </p>
 	 * <p>
 	 * Serializes to an element of the JSON <a href=
-	 * "https://developers.google.com/chart/interactive/docs/reference#rowsproperty"
-	 * >{@code rows}</a> property.
+	 * "https://developers.google.com/chart/interactive/docs/reference#rowsproperty" >{@code rows}</a> property.
 	 * </p>
 	 */
-	public static final class Row extends JSONObject {
+	private static final class Row extends JSONObject {
 
 		private static final String CELLS = "c";
 		private static final String PROPERTIES = "p";
@@ -212,32 +273,46 @@ public class DataTable extends JSONObject {
 		private final Cells cells = new Cells();
 
 		@SuppressWarnings("unchecked")
-		public Row() {
+		Row(int capacity) {
 			put(CELLS, cells);
+			cells.setCapacity(capacity);
 		}
 
 		@SuppressWarnings("unchecked")
-		public void addCell(Object value) {
-			addCell(new Cell(value));
+		void setValue(int colIndex, Object value) {
+			getCell(colIndex).setValue(value);
 		}
 
-		public void addCell(FormattedValue value) {
-			addCell(value.getValue(), value.getFormat());
-		}
-
-		@SuppressWarnings("unchecked")
-		public void addCell(Object value, String format) {
-			addCell(new Cell(value, format));
+		void setValue(int colIndex, FormattedValue value) {
+			setValue(colIndex, value.getValue(), value.getFormat());
 		}
 
 		@SuppressWarnings("unchecked")
-		public void addCell(Cell cell) {
-			cells.add(cell);
+		void setValue(int colIndex, Object value, String format) {
+			getCell(colIndex).setValue(value).setFormat(format);
+		}
+
+		Cell getCell(int columnIndex) {
+			if(columnIndex < 0 || columnIndex >= cells.size()) {
+				throw new IndexOutOfBoundsException("columnIndex: " + columnIndex);
+			}
+			return (Cell)cells.get(columnIndex);
+		}
+
+		void setCapacity(int capacity) {
+			cells.setCapacity(capacity);
 		}
 
 	}
 
-	public static final class Cells extends JSONArray {
+	private static final class Cells extends JSONArray {
+
+		void setCapacity(int capacity) {
+			// TODO efficiency
+			while(size() < capacity) {
+				add(new Cell(null));
+			}
+		}
 
 	}
 
@@ -247,25 +322,38 @@ public class DataTable extends JSONObject {
 	 * </p>
 	 * <p>
 	 * Serializes to an element of the JSON <a href=
-	 * "https://developers.google.com/chart/interactive/docs/reference#cell_object"
-	 * >{@code cell}</a> object.
+	 * "https://developers.google.com/chart/interactive/docs/reference#cell_object" >{@code cell}</a> object.
 	 * </p>
 	 */
-	public static final class Cell extends JSONObject {
+	private static final class Cell extends JSONObject {
 
 		private static final String VALUE = "v";
 		private static final String FORMAT = "f";
 		private static final String PROPERTIES = "p";
 
 		@SuppressWarnings("unchecked")
-		public Cell(Object value) {
+		Cell(Object value) {
 			put(VALUE, value);
 		}
 
 		@SuppressWarnings("unchecked")
-		public Cell(Object value, String format) {
+		Cell(Object value, String format) {
 			put(VALUE, value);
 			put(FORMAT, format);
+		}
+
+		Object getValue() {
+			return get(VALUE);
+		}
+
+		Cell setValue(Object value) {
+			put(VALUE, value);
+			return this;
+		}
+
+		Cell setFormat(String format) {
+			put(FORMAT, format);
+			return this;
 		}
 
 	}

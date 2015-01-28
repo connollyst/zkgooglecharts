@@ -1,22 +1,21 @@
 package org.zkoss.google.charts;
 
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
-
-import java.io.IOException;
-import java.net.URL;
-
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import org.json.JSONException;
 import org.junit.Test;
 import org.zkoss.google.charts.data.DataTable;
 import org.zkoss.google.charts.data.FormattedValue;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
+import java.io.IOException;
+import java.net.URL;
+
+import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 /**
  * @author Sean Connolly
  */
-public class DataTableTest {
+public class DataTableSerializationTest {
 
 	private static final boolean JSON_STRICT = false;
 
