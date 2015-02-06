@@ -13,14 +13,7 @@ public class BarChart extends GoogleChart {
 	private static final String COLORS = "colors";
 
 	public String[] getColors() {
-		Object colors = getOption(COLORS);
-		if(colors == null) {
-			return new String[0];
-		}
-		if(colors instanceof String[]) {
-			return (String[])colors;
-		}
-		throw new IllegalStateException(COLORS + " should be a String[] but is a " + colors.getClass().getSimpleName());
+		return getOption(COLORS, new String[0], String[].class);
 	}
 
 	public void setColors(String... colors) {
