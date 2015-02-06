@@ -31,7 +31,7 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
             if (!zul.googlecharts.GoogleChart.googleLoaded && !zul.googlecharts.GoogleChart.googleLoading) {
                 console.log('zkgooglecharts: Loading Google APIs..');
                 google.load('visualization', '1', {
-                    'packages': ['corechart'],
+                    'packages': ['corechart', 'timeline'],
                     'callback': zul.googlecharts.GoogleChart._onLoad
                 });
                 zul.googlecharts.GoogleChart.googleLoading = true;
