@@ -42,13 +42,14 @@
 
     <properties>
         <zk.version>7.0.3</zk.version>
-        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
-        <packname>-${project.version}-FL-${maven.build.timestamp}</packname>
         <jackson.version>2.5.0</jackson.version>
         <servlet.api.version>2.4</servlet.api.version>
         <junit.version>4.10</junit.version>
         <assertj.version>1.7.1</assertj.version>
         <guava.version>18.0</guava.version>
+        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+        <packname>-${project.version}-FL-${maven.build.timestamp}</packname>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <repositories>
