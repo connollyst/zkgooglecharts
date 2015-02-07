@@ -41,13 +41,13 @@ public class DemoComposer {
 
     public DataTable getTimelineDataModel() {
         DataTable data = new DataTable();
-        data.addStringColumn("Term");
+        data.addStringColumn("Title");
         data.addStringColumn("Name");
         data.addDateColumn("Start");
         data.addDateColumn("End");
-        data.addRow(1, "Washington", getDate(1789, 3, 29), getDate(1797, 2, 3));
-        data.addRow(2, "Adams", getDate(1797, 2, 3), getDate(1801, 2, 3));
-        data.addRow(3, "Jefferson", getDate(1801, 2, 3), getDate(1809, 2, 3));
+        data.addRow("President", "Washington", getDate(1789, 3, 29), getDate(1797, 2, 3));
+        data.addRow("President", "Adams", getDate(1797, 2, 3), getDate(1801, 2, 3));
+        data.addRow("President", "Jefferson", getDate(1801, 2, 3), getDate(1809, 2, 3));
         return data;
     }
 
