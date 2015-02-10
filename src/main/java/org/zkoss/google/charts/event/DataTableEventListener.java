@@ -1,7 +1,6 @@
 package org.zkoss.google.charts.event;
 
 import org.zkoss.json.JSONObject;
-import org.zkoss.util.Pair;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -29,25 +28,25 @@ public final class DataTableEventListener implements EventListener<Event> {
 
 	@Override
 	public void onEvent(Event event) {
-		List<Pair<Integer, Integer>> coords = new ArrayList<>();
+		List<DataTableSelection> coords = new ArrayList<>();
 		Object data = event.getData();
 		if(data instanceof Object[]) {
 			coords.addAll(getCoordinates((Object[])data));
 		} else {
 			coords.add(getCoordinates(data));
 		}
-		Events.sendEvent(new DataTableEvent(eventName, event.getTarget(), coords));
+		Events.sendEvent(new DataTableSelectionEvent(eventName, event.getTarget(), coords));
 	}
 
-	private List<Pair<Integer, Integer>> getCoordinates(Object[] data) {
-		List<Pair<Integer, Integer>> coords = new ArrayList<>();
+	private List<DataTableSelection> getCoordinates(Object[] data) {
+		List<DataTableSelection> coords = new ArrayList<>();
 		for(Object datum : data) {
 			coords.add(getCoordinates(datum));
 		}
 		return coords;
 	}
 
-	private Pair<Integer, Integer> getCoordinates(Object datum) {
+	private DataTableSelection getCoordinates(Object datum) {
 		if(datum instanceof JSONObject) {
 			return getCoordinates((JSONObject)datum);
 		} else {
@@ -55,13 +54,13 @@ public final class DataTableEventListener implements EventListener<Event> {
 		}
 	}
 
-	private Pair<Integer, Integer> getCoordinates(JSONObject json) {
+	private DataTableSelection getCoordinates(JSONObject json) {
 		Integer row = getInteger(json, "row");
 		Integer col = getInteger(json, "column");
 		if(row == null && col == null) {
 			throw new IllegalArgumentException("Expected 'row' and/or 'column', got " + json);
 		}
-		return new Pair<>(row, col);
+		return new DataTableSelection(row, col);
 	}
 
 	private Integer getInteger(JSONObject json, String key) {
