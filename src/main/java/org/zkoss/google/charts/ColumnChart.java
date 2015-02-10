@@ -10,6 +10,11 @@ package org.zkoss.google.charts;
  */
 public class ColumnChart extends GoogleChart {
 
+	static {
+		addClientEvent(GoogleChart.class, GoogleChartEvents.ON_ANIMATION_FINISH, CE_IMPORTANT);
+		addClientEvent(GoogleChart.class, GoogleChartEvents.ON_CLICK, CE_IMPORTANT | CE_DUPLICATE_IGNORE);
+	}
+
 	private static final String COLORS = "colors";
 
 	public String[] getColors() {

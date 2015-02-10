@@ -1,10 +1,10 @@
 <window id="win" apply="org.zkoss.bind.BindComposer"
         viewModel="@id('vm') @init('org.zkoss.google.charts.DemoComposer')">
-    <button label="Open Window" onClick="@command('openWindow')"/>
+    <button label="Add Chart" onClick="@command('addChart')"/>
     <vbox hflex="1">
         <timeline data="@load(vm.timelineDataModel)"/>
         <piechart data="@load(vm.simpleDataModel)"/>
-        <!--<barchart data="@load(vm.simpleDataModel)"/>-->
-        <!--<columnchart data="@load(vm.simpleDataModel)"/>-->
+        <barchart data="@load(vm.simpleDataModel)"/>
+        <columnchart data="@load(vm.simpleDataModel)"/>
     </vbox>
 </window>
