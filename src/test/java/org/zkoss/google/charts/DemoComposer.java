@@ -6,7 +6,7 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.google.charts.data.DataTable;
 import org.zkoss.google.charts.data.FormattedValue;
-import org.zkoss.google.charts.event.DataTableEvent;
+import org.zkoss.google.charts.event.DataTableSelectionEvent;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -76,11 +76,11 @@ public class DemoComposer {
 				System.out.println("CHART READY");
 			}
 		});
-		chart.addEventListener(GoogleChartEvents.ON_SELECT, new EventListener<DataTableEvent>() {
+		chart.addEventListener(GoogleChartEvents.ON_SELECT, new EventListener<DataTableSelectionEvent>() {
 
 			@Override
-			public void onEvent(DataTableEvent event) {
-				System.out.println("CHART SELECTED: " + event.getCoordinates());
+			public void onEvent(DataTableSelectionEvent event) {
+				System.out.println("CHART SELECTED: " + event.getSelections());
 			}
 		});
 		base.appendChild(chart);
