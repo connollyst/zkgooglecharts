@@ -13,4 +13,12 @@ public class DataTableSelection {
 		this.col = col;
 	}
 
+	public Integer getRow() {
+		return row;
+	}
+
+	public Integer getColumn() {
+		return col;
+	}
+
 }
