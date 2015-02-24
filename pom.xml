@@ -175,7 +175,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <arguments>-Dgpg.passphrase=Jebus617</arguments>
+                    <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
                 </configuration>
             </plugin>
             <!-- Run test webapp with Jetty -->
