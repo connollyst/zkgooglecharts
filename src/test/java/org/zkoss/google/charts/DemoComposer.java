@@ -8,6 +8,7 @@ import org.zkoss.google.charts.data.DataTable;
 import org.zkoss.google.charts.data.FormattedValue;
 import org.zkoss.google.charts.event.DataTableSelectionEvent;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
@@ -104,7 +105,7 @@ public class DemoComposer {
 
     @Command
     public void download() {
-        System.out.println("Downloading from " + pieChart);
+        Executions.sendRedirect(pieChart.getImageURI());
     }
 
 }

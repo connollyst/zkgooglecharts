@@ -42,7 +42,7 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
                 widget.fire('onError', err);
             });
             google.visualization.events.addListener(chart, 'ready', function () {
-                widget.fire('onReady');
+                widget.fire('onReady', chart.getImageURI());
             });
             google.visualization.events.addListener(chart, 'onmouseover', function (evt) {
                 widget.fire('onMouseOverInternal', evt);
