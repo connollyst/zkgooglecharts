@@ -6,13 +6,16 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.google.charts.data.DataTable;
 import org.zkoss.google.charts.data.FormattedValue;
+import org.zkoss.google.charts.event.DataTableSelectionEvent;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zul.Window;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 /**
  * @author Sean Connolly
@@ -20,7 +23,11 @@ import java.util.GregorianCalendar;
 public class DemoComposer {
 
     @Wire("#win")
-    private Window base;
+    private Component base;
+    @Wire("#pieChart")
+    private PieChart pieChart;
+
+    private final Random random = new Random();
 
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
@@ -56,11 +63,48 @@ public class DemoComposer {
     }
 
     @Command
-    public void openWindow() {
-        System.out.println("Adding chart to " + base);
-        BarChart chart = new BarChart();
-        chart.setData(getSimpleDataModel());
+    public void addChart() {
+        GoogleChart chart = randomChart();
+        if (chart instanceof Timeline) {
+            chart.setData(getTimelineDataModel());
+        } else {
+            chart.setData(getSimpleDataModel());
+        }
+        chart.addEventListener(GoogleChartEvents.ON_READY, new EventListener<Event>() {
+
+            @Override
+            public void onEvent(Event event) {
+                System.out.println("CHART READY");
+            }
+        });
+        chart.addEventListener(GoogleChartEvents.ON_SELECT, new EventListener<DataTableSelectionEvent>() {
+
+            @Override
+            public void onEvent(DataTableSelectionEvent event) {
+                System.out.println("CHART SELECTED: " + event.getSelections());
+            }
+        });
         base.appendChild(chart);
+    }
+
+    private GoogleChart randomChart() {
+        switch (random.nextInt(4)) {
+            case 0:
+                return new PieChart();
+            case 1:
+                return new BarChart();
+            case 2:
+                return new ColumnChart();
+            case 3:
+                return new Timeline();
+            default:
+                throw new IllegalAccessError("You're gonna need a bigger boat.");
+        }
+    }
+
+    @Command
+    public void download() {
+        System.out.println("Downloading from " + pieChart);
     }
 
 }
