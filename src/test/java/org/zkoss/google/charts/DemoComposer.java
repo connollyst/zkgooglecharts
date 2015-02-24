@@ -34,38 +34,34 @@ public class DemoComposer {
         Selectors.wireComponents(view, this, false);
     }
 
-	@AfterCompose
-	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
-		Selectors.wireComponents(view, this, false);
-	}
+    public DataTable getSimpleDataModel() {
+        DataTable data = new DataTable();
+        data.addStringColumn("Task", "task");
+        data.addNumberColumn("Hours per Day", "hours");
+        data.addRow("Work", 11);
+        data.addRow("Eat", 2);
+        data.addRow("Commute", 2);
+        data.addRow("Watch TV", 2);
+        data.addRow("Sleep", new FormattedValue(7, "7.000"));
+        return data;
+    }
 
-	public DataTable getSimpleDataModel() {
-		DataTable data = new DataTable();
-		data.addStringColumn("Task", "task");
-		data.addNumberColumn("Hours per Day", "hours");
-		data.addRow("Work", 11);
-		data.addRow("Eat", 2);
-		data.addRow("Commute", 2);
-		data.addRow("Watch TV", 2);
-		data.addRow("Sleep", new FormattedValue(7, "7.000"));
-		return data;
-	}
+    public DataTable getTimelineDataModel() {
+        DataTable data = new DataTable();
+        data.addStringColumn("Title");
+        data.addStringColumn("Name");
+        data.addDateColumn("Start");
+        data.addDateColumn("End");
+        data.addRow("President", "Washington", getDate(1789, 3, 29), getDate(1797, 2, 3));
+        data.addRow("President", "Adams", getDate(1797, 2, 3), getDate(1801, 2, 3));
+        data.addRow("President", "Jefferson", getDate(1801, 2, 3), getDate(1809, 2, 3));
+        return data;
+    }
 
-	public DataTable getTimelineDataModel() {
-		DataTable data = new DataTable();
-		data.addStringColumn("Title");
-		data.addStringColumn("Name");
-		data.addDateColumn("Start");
-		data.addDateColumn("End");
-		data.addRow("President", "Washington", getDate(1789, 3, 29), getDate(1797, 2, 3));
-		data.addRow("President", "Adams", getDate(1797, 2, 3), getDate(1801, 2, 3));
-		data.addRow("President", "Jefferson", getDate(1801, 2, 3), getDate(1809, 2, 3));
-		return data;
-	}
+    private Date getDate(int year, int month, int day) {
+        return new GregorianCalendar(year, month, day).getTime();
+    }
 
-	private Date getDate(int year, int month, int day) {
-		return new GregorianCalendar(year, month, day).getTime();
-	}
     @Command
     public void addChart() {
         GoogleChart chart = randomChart();
@@ -111,43 +107,4 @@ public class DemoComposer {
         System.out.println("Downloading from " + pieChart);
     }
 
-	@Command
-	public void addChart() {
-		GoogleChart chart = randomChart();
-		if(chart instanceof Timeline) {
-			chart.setData(getTimelineDataModel());
-		} else {
-			chart.setData(getSimpleDataModel());
-		}
-		chart.addEventListener(GoogleChartEvents.ON_READY, new EventListener<Event>() {
-
-			@Override
-			public void onEvent(Event event) {
-				System.out.println("CHART READY");
-			}
-		});
-		chart.addEventListener(GoogleChartEvents.ON_SELECT, new EventListener<DataTableSelectionEvent>() {
-
-			@Override
-			public void onEvent(DataTableSelectionEvent event) {
-				System.out.println("CHART SELECTED: " + event.getSelections());
-			}
-		});
-		base.appendChild(chart);
-	}
-
-	private GoogleChart randomChart() {
-		switch (random.nextInt(4)) {
-		case 0:
-			return new PieChart();
-		case 1:
-			return new BarChart();
-		case 2:
-			return new ColumnChart();
-		case 3:
-			return new Timeline();
-		default:
-			throw new IllegalAccessError("You're gonna need a bigger boat.");
-		}
-	}
 }
