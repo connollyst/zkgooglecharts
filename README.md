@@ -1,5 +1,5 @@
 # zkgooglecharts
-ZK Wrapper for Google Charts
+ZK Wrapper for [Google Charts](https://developers.google.com/chart/) visualizations.
 
 ## Download
 
@@ -33,3 +33,13 @@ The following Google Charts are provided at this time:
 - [``Timeline``](/src/main/java/org/zkoss/google/charts/Timeline.java)
 
 More will be supported in future releases.
+
+## License
+
+zkgooglecharts and Google Charts are available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).
+
+## Credit
+
+Google Charts is developed by Google.
+
+zkgooglecharts is devolped by [Sean Connolly](https://github.com/connollyst).
