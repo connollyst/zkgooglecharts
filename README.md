@@ -34,6 +34,44 @@ The following Google Charts are provided at this time:
 
 More will be supported in future releases.
 
+## Quick Start
+
+#### ZUL
+
+Charts can be added to any ZK component and configured directly in ZUL. Data, however, must be initialized in Java.
+
+    <zk>
+    	<zscript>
+            DataTable data = new DataTable();
+            data.addStringColumn("Task", "task");
+            data.addNumberColumn("Hours per Day", "hours");
+            data.addRow("Work", 11);
+            data.addRow("Eat", 2);
+            data.addRow("Commute", 2);
+            data.addRow("Watch TV", 2);
+            data.addRow("Sleep", new FormattedValue(7, "7.000"));
+    	</zscript>
+    	<piechart 3D="true" data="${data}"/>
+    </zk>
+
+#### Java
+
+The above can all be done directly in Java, of course.
+
+    DataTable data = new DataTable();
+    data.addStringColumn("Task", "task");
+    data.addNumberColumn("Hours per Day", "hours");
+    data.addRow("Work", 11);
+    data.addRow("Eat", 2);
+    data.addRow("Commute", 2);
+    data.addRow("Watch TV", 2);
+    data.addRow("Sleep", new FormattedValue(7, "7.000"));
+    
+    PieChart chart = new PieChart();
+    chart.set3D(true);
+    chart.setData(data);
+    chart.setParent(window);
+
 ## License
 
 zkgooglecharts and Google Charts are available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0).
