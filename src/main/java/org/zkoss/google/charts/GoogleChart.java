@@ -2,8 +2,6 @@ package org.zkoss.google.charts;
 
 import org.zkoss.google.charts.data.DataTable;
 import org.zkoss.google.charts.event.DataTableEventListener;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.sys.ContentRenderer;
 import org.zkoss.zul.impl.XulElement;
 
@@ -21,7 +19,6 @@ import static org.zkoss.google.charts.GoogleChartEvents.*;
 public abstract class GoogleChart extends XulElement {
 
     static {
-        addClientEvent(GoogleChart.class, ON_READY, CE_IMPORTANT);
         addClientEvent(GoogleChart.class, ON_ERROR, CE_DUPLICATE_IGNORE);
         addClientEvent(GoogleChart.class, ON_MOUSE_OVER_INTERNAL, CE_IMPORTANT);
         addClientEvent(GoogleChart.class, ON_MOUSE_OUT_INTERNAL, CE_IMPORTANT);
@@ -32,7 +29,7 @@ public abstract class GoogleChart extends XulElement {
         addEventListener(10000, ON_MOUSE_OVER_INTERNAL, new DataTableEventListener(ON_MOUSE_OVER));
         addEventListener(10000, ON_MOUSE_OUT_INTERNAL, new DataTableEventListener(ON_MOUSE_OUT));
         addEventListener(10000, ON_SELECT_INTERNAL, new DataTableEventListener(ON_SELECT));
-        addEventListener(10000, ON_READY, new LoadListener());
+
     }
 
     private static final String HEIGHT = "height";
@@ -42,7 +39,6 @@ public abstract class GoogleChart extends XulElement {
     protected DataTable data = new DataTable();
     protected Map<String, Object> options = new HashMap<>();
 
-    private String imageURI;
 
     public DataTable getData() {
         return data;
@@ -106,10 +102,6 @@ public abstract class GoogleChart extends XulElement {
         setOption(TITLE, title);
     }
 
-    public String getImageURI() {
-        return imageURI;
-    }
-
     @Override
     protected void renderProperties(ContentRenderer renderer) throws IOException {
         super.renderProperties(renderer);
@@ -117,13 +109,5 @@ public abstract class GoogleChart extends XulElement {
         render(renderer, "chartOptions", options);
     }
 
-    private final class LoadListener implements EventListener<Event> {
-
-        @Override
-        public void onEvent(Event event) {
-            imageURI = event.getData().toString();
-        }
-
-    }
 
 }

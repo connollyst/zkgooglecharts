@@ -3,7 +3,11 @@ zul.googlecharts.BarChart = zk.$extends(zul.googlecharts.GoogleChart, {
     // protected //
 
     doDrawChart_: function () {
-        this.drawChart_(new google.visualization.BarChart(this.container_()));
+        var chart = new google.visualization.BarChart(this.container_());
+        google.visualization.events.addListener(chart, 'ready', function () {
+            widget.fire('onReady', chart.getImageURI());
+        });
+        this.drawChart_(chart);
     },
     bind_: function () {
         this.$supers(zul.googlecharts.BarChart, 'bind_', arguments);

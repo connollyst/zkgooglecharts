@@ -5,6 +5,9 @@ zul.googlecharts.ColumnChart = zk.$extends(zul.googlecharts.GoogleChart, {
     doDrawChart_: function () {
         var widget = this;
         var chart = new google.visualization.ColumnChart(this.container_());
+        google.visualization.events.addListener(chart, 'ready', function () {
+            widget.fire('onReady', chart.getImageURI());
+        });
         google.visualization.events.addListener(chart, 'animationfinish', function () {
             widget.fire('onAnimationFinish');
         });

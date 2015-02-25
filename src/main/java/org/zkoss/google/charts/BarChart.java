@@ -8,7 +8,7 @@ package org.zkoss.google.charts;
  *
  * @author Sean Connolly
  */
-public class BarChart extends GoogleChart {
+public class BarChart extends GoogleCoreChart {
 
 	private static final String COLORS = "colors";
 

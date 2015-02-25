@@ -8,7 +8,7 @@ package org.zkoss.google.charts;
  *
  * @author Sean Connolly
  */
-public class ColumnChart extends GoogleChart {
+public class ColumnChart extends GoogleCoreChart {
 
 	static {
 		addClientEvent(GoogleChart.class, GoogleChartEvents.ON_ANIMATION_FINISH, CE_IMPORTANT);
