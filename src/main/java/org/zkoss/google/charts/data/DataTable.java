@@ -164,6 +164,18 @@ public class DataTable extends JSONObject {
         return column;
     }
 
+    public ColumnType getColumnType(int index) {
+        return columns.get(index).getType();
+    }
+
+    public String getColumnLabel(int index) {
+        return columns.get(index).getLabel();
+    }
+
+    public String getColumnId(int index) {
+        return columns.get(index).getId();
+    }
+
     public Row addRow() {
         Row row = new Row(getNumberOfColumns());
         rows.add(row);
@@ -254,6 +266,20 @@ public class DataTable extends JSONObject {
             put(PATTERN, pattern);
         }
 
+        public ColumnType getType() {
+            Object type = get(TYPE);
+            return type != null ? ColumnType.fromString(type.toString()) : null;
+        }
+
+        public String getLabel() {
+            Object label = get(LABEL);
+            return label != null ? label.toString() : null;
+        }
+
+        public String getId() {
+            Object id = get(ID);
+            return id != null ? id.toString() : null;
+        }
     }
 
     /**
