@@ -8,6 +8,7 @@ import org.zkoss.google.charts.data.DataTable;
 import org.zkoss.google.charts.data.FormattedValue;
 import org.zkoss.google.charts.event.DataTableSelectionEvent;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zul.Div;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -27,6 +28,9 @@ public class DemoComposer {
     private Component base;
     @Wire("#pieChart")
     private PieChart pieChart;
+    @Wire
+    private Div chartArea;
+
 
     private final Random random = new Random();
 
@@ -71,25 +75,32 @@ public class DemoComposer {
         } else {
             chart.setData(getSimpleDataModel());
         }
-        chart.addEventListener(GoogleChartEvents.ON_READY, new EventListener<Event>() {
+        chart.setWidth("640");
+        chart.setHeight("320");
 
+        chart.addEventListener(GoogleChartEvents.ON_READY, new EventListener<Event>() {
             @Override
             public void onEvent(Event event) {
                 System.out.println("CHART READY");
             }
         });
         chart.addEventListener(GoogleChartEvents.ON_SELECT, new EventListener<DataTableSelectionEvent>() {
-
             @Override
             public void onEvent(DataTableSelectionEvent event) {
                 System.out.println("CHART SELECTED: " + event.getSelections());
             }
         });
-        base.appendChild(chart);
+        chartArea.getChildren().clear();
+        chartArea.appendChild(chart);
     }
 
-    private GoogleChart randomChart() {
-        switch (random.nextInt(4)) {
+    int chartcounter = random.nextInt(100); 
+    
+    private GoogleChart  randomChart() {
+    
+    chartcounter++;
+
+        switch (chartcounter % 4) {
             case 0:
                 return new PieChart();
             case 1:

@@ -3,6 +3,7 @@ zul.googlecharts.BarChart = zk.$extends(zul.googlecharts.GoogleChart, {
     // protected //
 
     doDrawChart_: function () {
+        var widget = this;
         var chart = new google.visualization.BarChart(this.container_());
         google.visualization.events.addListener(chart, 'ready', function () {
             widget.fire('onReady', chart.getImageURI());
