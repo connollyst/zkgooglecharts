@@ -3,6 +3,7 @@ zul.googlecharts.PieChart = zk.$extends(zul.googlecharts.GoogleChart, {
     // protected //
 
     doDrawChart_: function () {
+        var widget = this;
         var chart = new google.visualization.PieChart(this.container_());
         google.visualization.events.addListener(chart, 'ready', function () {
             widget.fire('onReady', chart.getImageURI());

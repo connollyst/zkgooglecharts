@@ -1,7 +1,8 @@
 <vbox id="win" hflex="1"
       apply="org.zkoss.bind.BindComposer"
       viewModel="@id('vm') @init('org.zkoss.google.charts.DemoComposer')">
-    <button label="Add Chart" onClick="@command('addChart')"/>
+    <button label="Show (next) Chart" onClick="@command('addChart')"/>
     <button label="Download" onClick="@command('download')"/>
-    <piechart id="pieChart" data="@load(vm.simpleDataModel)"/>
+    <piechart id="pieChart" data="@load(vm.simpleDataModel)" /> 
+    <div id="chartArea"/>
 </vbox>
