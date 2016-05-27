@@ -164,6 +164,15 @@ public class DataTable extends JSONObject {
         return column;
     }
 
+    public Column addColumn(ColumnType type, ColumnRole role) {
+        Column column = new Column(type, role);
+        columns.add(column);
+        for (Row row : rows) {
+            row.setCapacity(columns.size());
+        }
+        return column;
+    }
+
     public ColumnType getColumnType(int index) {
         return columns.get(index).getType();
     }
@@ -228,10 +237,11 @@ public class DataTable extends JSONObject {
         private static final String LABEL = "label";
         private static final String ID = "id";
         private static final String PATTERN = "pattern";
+        private static final String ROLE = "role";
         private static final String PROPERTIES = "p";
 
         /**
-         * @param type  A string describing the column data type. Same values as type above.
+         * @param type  The data type of the column.
          * @param label A label for the column.
          */
         @SuppressWarnings("unchecked")
@@ -241,7 +251,7 @@ public class DataTable extends JSONObject {
         }
 
         /**
-         * @param type  A string describing the column data type. Same values as type above.
+         * @param type  The data type of the column.
          * @param label A label for the column.
          * @param id    An ID for the column.
          */
@@ -253,7 +263,7 @@ public class DataTable extends JSONObject {
         }
 
         /**
-         * @param type    A string describing the column data type. Same values as type above.
+         * @param type    The data type of the column.
          * @param label   A label for the column.
          * @param id      An ID for the column.
          * @param pattern A number (or date) format string specifying how to display the column value.
@@ -264,6 +274,15 @@ public class DataTable extends JSONObject {
             put(LABEL, label);
             put(ID, id);
             put(PATTERN, pattern);
+        }
+
+        /**
+         * @param type The data type of the column.
+         * @param role The role of the column.
+         */
+        public Column(ColumnType type, ColumnRole role) {
+            put(TYPE, type.toString());
+            put(ROLE, role.toString());
         }
 
         public ColumnType getType() {

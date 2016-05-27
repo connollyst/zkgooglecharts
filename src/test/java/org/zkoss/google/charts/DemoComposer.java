@@ -4,16 +4,18 @@ import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.google.charts.data.ColumnRole;
+import org.zkoss.google.charts.data.ColumnType;
 import org.zkoss.google.charts.data.DataTable;
 import org.zkoss.google.charts.data.FormattedValue;
 import org.zkoss.google.charts.event.DataTableSelectionEvent;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zul.Div;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Div;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -43,11 +45,13 @@ public class DemoComposer {
         DataTable data = new DataTable();
         data.addStringColumn("Task", "task");
         data.addNumberColumn("Hours per Day", "hours");
-        data.addRow("Work", 11);
-        data.addRow("Eat", 2);
-        data.addRow("Commute", 2);
-        data.addRow("Watch TV", 2);
-        data.addRow("Sleep", new FormattedValue(7, "7.000"));
+        data.addColumn(ColumnType.STRING, ColumnRole.TOOLTIP);
+        data.addColumn(ColumnType.STRING, ColumnRole.STYLE);
+        data.addRow("Work", 11, null, null);
+        data.addRow("Eat", 2, "Hello world!", "opacity: 0.2");
+        data.addRow("Commute", 2, null, "fill-color: #76A7FA");
+        data.addRow("Watch TV", 2, "Hello world!", "color: #76A7FA");
+        data.addRow("Sleep", new FormattedValue(7, "7.000"), null, "opacity: 0.7");
         return data;
     }
 
@@ -94,11 +98,11 @@ public class DemoComposer {
         chartArea.appendChild(chart);
     }
 
-    int chartcounter = random.nextInt(100); 
-    
-    private GoogleChart  randomChart() {
-    
-    chartcounter++;
+    int chartcounter = random.nextInt(100);
+
+    private GoogleChart randomChart() {
+
+        chartcounter++;
 
         switch (chartcounter % 4) {
             case 0:
