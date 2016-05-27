@@ -50,7 +50,6 @@ zul.googlecharts.GoogleChart = zk.$extends(zk.Widget, {
             google.visualization.events.addListener(chart, 'select', function () {
                 widget.fire('onSelectInternal', chart.getSelection());
             });
-            console.log(this._chartData);
             var data = new google.visualization.DataTable(this._chartData);
             chart.draw(data, this._chartOptions);
         },
