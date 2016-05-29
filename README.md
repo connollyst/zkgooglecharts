@@ -8,12 +8,12 @@ ZK Wrapper for [Google Charts](https://developers.google.com/chart/) visualizati
     <dependency>
     	<groupId>org.zkoss</groupId>
     	<artifactId>zkgooglecharts</artifactId>
-    	<version>0.1.9</version>
+    	<version>0.3.0</version>
     </dependency>
 
 #### Gradle
 
-    runtime group: 'org.zkoss', name: 'zkgooglecharts', version: '0.1.9'
+    runtime group: 'org.zkoss', name: 'zkgooglecharts', version: '0.3.0'
 
 ## Demo
 
