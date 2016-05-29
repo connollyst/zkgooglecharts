@@ -1,7 +1,7 @@
 package org.zkoss.google.charts.data;
 
 /**
- * Enumeration of data types supported by Google Charts.
+ * Data type of the data in the column.
  *
  * @author Sean Connolly
  */

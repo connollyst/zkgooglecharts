@@ -3,8 +3,6 @@ zul.googlecharts.Timeline = zk.$extends(zul.googlecharts.GoogleChart, {
     // protected //
 
     doDrawChart_: function () {
-//        this.drawChart_(new google.visualization.Timeline(this.container_()));
-
         var widget = this;
         var chart = new google.visualization.Timeline(this.container_());
         google.visualization.events.addListener(chart, 'ready', function () {

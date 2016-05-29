@@ -8,6 +8,6 @@ package org.zkoss.google.charts;
  */
 public class Version {
 
-	public static final String UID = "0.2";
+	public static final String UID = "0.3";
 
 }

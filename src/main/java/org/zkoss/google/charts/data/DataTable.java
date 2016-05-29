@@ -55,7 +55,7 @@ public class DataTable extends JSONObject {
      *                    the {@link #getNumberOfRows()} method.
      * @param columnIndex should be a number greater than or equal to zero, and less than the number of columns as
      *                    returned by the {@link #getNumberOfColumns()} method.
-     * @return The type of the returned value depends on the column type (see {@link #getColumnType()}):
+     * @return The type of the returned value depends on the column type (see {@link #getColumnType(int)}):
      * <ul>
      * <li>If the column type is {@code 'string'}, the value is a {@code String}.</li>
      * <li>If the column type is {@code 'number'}, the value is an {@code Integer}.</li>
@@ -79,7 +79,7 @@ public class DataTable extends JSONObject {
      * @param columnIndex should be a number greater than or equal to zero, and less than the number of columns as
      *                    returned by the {@link #getNumberOfColumns()} method.
      * @param value       is the value assigned to the specified cell. The type of the returned value depends on the column
-     *                    type (see {@link #getColumnType()}):
+     *                    type (see {@link #getColumnType(int)}):
      *                    <ul>
      *                    <li>If the column type is {@code 'string'}, the value is a {@code String}.</li>
      *                    <li>If the column type is {@code 'number'}, the value is an {@code Integer}.</li>
@@ -89,10 +89,6 @@ public class DataTable extends JSONObject {
      *                    second, milliseconds].</li>
      *                    <li>If the column value is a {@code null} value, an exception is thrown.</li>
      *                    </ul>
-     * @see setCell
-     * @see setFormattedValue
-     * @see setProperty
-     * @see setProperties
      */
     public void setValue(int rowIndex, int columnIndex, Object value) {
         getRow(rowIndex).getCell(columnIndex).setValue(value);
